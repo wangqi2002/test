@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #div1 {
+            width: 200px;
+            height: 200px;
+            background-color: cyan;
+            border: 1px solid black;
+            text-align: center;
+            position: relative;
+        }
+
+        #div input {
+            width: 200px;
+            height: 30px;
+            line-height: 30px;
+            font-size: 24px;
+            /* margin-top: 10px; */
+        }
+
+        #div1 span {
+            font-size: 16px;
+            color: red;
+        }
+
+        #div1 .testCode {
+            width: 50px;
+            height: 20px;
+            line-height: 20px;
+            font-size: 12px;
+            background-color: gray;
+            color: black;
+            float: left;
+            margin-left: 12px;
+            margin-top: 10px;
+        }
+    </style>
+    <script src="js/tool.js"></script>
+    <script>
+        /* 
+         */
+
+        /* function func(){
+            var oUsername = document.getElementById("username");
+            var oUsernamespan = document.getElementById("username_span");
+
+            var oValue = oUsername.value;
+
+            if(oValue.length < 6 || oValue.length >18){
+                oUsernamespan.innerHTML = "!长度应为6~18个字符";
+            }else if(!isABC(oValue[0])){
+                oUsernamespan.innerHTML = "邮件地址必需以英文字母开头";
+            }else{
+                var isYes = true;
+                for(var i =0; i < oValue.length; i++){
+                    if(!isDEF(oValue[i])){
+                        isYes = false;
+                        break;
+                    }
+                }
+                if(isYes){
+                    oUsernamespan.innerHTML = "√ 恭喜,该邮件地址可注册";
+                }else{
+                    oUsernamespan.innerHTML = "！邮件地址需由字母、数字或下划线组成";
+                }
+            }
+        } */
+
+        window.onload = function () {
+            var oUsername = document.getElementById("username");
+            var oUsernamespan = document.getElementById("username_span");
+            var oPassword = document.getElementById("password")
+            var oDiv1 = document.getElementById("div1");
+            var oDivs = document.getElementsByClassName("testCode");
+
+            oUsername.onblur = function () {
+                var oValue = oUsername.value;
+
+                if (oValue.length < 6 || oValue.length > 18) {
+                    oUsernamespan.innerHTML = "!长度应为6~18个字符";
+                } else if (!/[a-zA-Z]/.test(oValue[0])) {
+                    oUsernamespan.innerHTML = "邮件地址必需以英文字母开头";
+                } else if (/\W/.test(oValue)) {
+                    oUsernamespan.innerHTML = "！邮件地址需由字母、数字或下划线组成";
+                    oUsernamespan.style.color = "red";
+                } else {
+                    oUsernamespan.innerHTML = "√ 恭喜,该邮件地址可注册";
+                    oUsernamespan.style.color = "green";
+                }
+            }
+
+            oPassword.onkeyup = function () {
+                var oValue = this.value;
+                for(var i=0;i<oDivs.length;i++){
+                    oDivs[i].style.backgroundColor = 'gray';
+                }
+                if (oValue.length >= 6) {
+                    if (/^\d+$/.test(oValue) || /^[a-z]+$/.test(oValue) || /^[A-Z]+$/.test(oValue)) {
+                        oDivs[0].style.backgroundColor = 'orange';
+                    } else if (/\d/.test(oValue) && /[a-z]/.test(oValue) && /[A-Z]/.test(oValue)) {
+                        oDivs[2].style.backgroundColor = 'orange';
+                    } else {
+                        oDivs[1].style.backgroundColor = 'orange';
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div id="div1">
+        <!-- <input id="username" type="text" placeholder="用户名" onblur="func();" /> -->
+        <input id="username" type="text" placeholder="用户名" />
+        <br><span id='username_span' style="font-size: 8px;">6~18个字符，可使用字母、数字、下划线，需以字母开头</span>
+        <br><input id="password" type="text" placeholder="密码" />
+        <div class="testCode">弱</div>
+        <div class="testCode">中</div>
+        <div class="testCode">强</div>
+    </div>
+</body>
+
+</html>
